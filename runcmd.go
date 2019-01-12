@@ -78,7 +78,9 @@ func output(worker CmdWorker) ([]byte, []byte, error) {
 	if err != nil {
 		if execErr, ok := err.(ExecError); ok {
 			execErr.Output = append(stdout.Bytes(), stderr.Bytes()...)
+			return stdout.Bytes(), stderr.Bytes(), execErr
 		}
+
 		return stdout.Bytes(), stderr.Bytes(), err
 	}
 
